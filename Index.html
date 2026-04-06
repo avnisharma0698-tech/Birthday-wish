@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        #envelope {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #envelope:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* The Surprise Section */
+        #surprise {
+            text-align: center;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 8px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            object-fit: cover;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px #ff4757;
+            margin-top: 20px;
+        }
+
+        p {
+            color: #eee;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="envelope" onclick="revealSurprise()">
+        <div style="font-size: 120px;">🎁</div>
+        <p style="color: white; font-weight: bold;">Tap to open your birthday surprise!</p>
+    </div>
+
+    <div id="surprise" class="hidden">
+        <img src="brother.jpg" alt="Happy Birthday Brother">
+        <h1>HAPPY BIRTHDAY BRO! 🎂</h1>
+        <p>"Tenu Sang Rakhna..."</p>
+    </div>
+
+    <div id="player"></div>
+
+    <script>
+        // Load the YouTube IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'tL6yO8y-D2Y', // This is the ID for 'Tenu Sang Rakhna'
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready, but we wait for the click to play
+        }
+
+        function revealSurprise() {
+            // 1. Hide the gift box
+            document.getElementById('envelope').classList.add('hidden');
+            
+            // 2. Show the brother's photo and wish
+            document.getElementById('surprise').classList.remove('hidden');
+            
+            // 3. Play the song from YouTube
+            if (player && player.playVideo) {
+                player.playVideo();
+            }
+
+            // 4. Change background to a party color!
+            document.body.style.backgroundColor = "#ff4757";
+        }
+    </script>
+</body>
+</html>
+
